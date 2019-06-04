@@ -9,7 +9,12 @@
      * Функция onChange должна получать тот же `this` и аргументы, что и обёртка
      **/
     function debounce(f, delay) {
-
+      return function(...args) {
+        clearTimeout(this.lastId);
+        this.lastId = setTimeout(() => {
+          f.apply(this, args);
+        }, delay);
+      }
     }
 
     function onChange(event) {
